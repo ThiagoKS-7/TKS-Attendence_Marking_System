@@ -18,7 +18,7 @@ export default function Home() {
       date.getMinutes()
     );
     return `${hours}:${minutes}`;
-  });
+  }, []);
 
   const currentDate = useCallback(() =>{
     const meses = {
@@ -42,14 +42,14 @@ export default function Home() {
       date.getMinutes()
     );
     return `${day} de ${meses[date.getMonth() +1]} de ${date.getFullYear()}`;
-  });
+  }, []);
 
   setInterval(() => {
     setClock(currentTime);
   },1000)
   useEffect(() => {
     setDay(currentDate);
-  });
+  }, [currentDate]);
 
   return (
     <>
@@ -60,7 +60,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className="min-h-[500px] w-[700px] flex flex-col justify-center items-center dark:bg-violet-900 rounded-[2em]">
+        <div className="min-h-[24vw] mt-[2vw] w-[95%] flex flex-col  pt-9 pb-9 justify-center items-center bg-gray-100  dark:bg-sky-900 rounded">
+          <div className={styles.title_wrapper}>
+            <h1 className={styles.title}>MARCAÇÃO DE PONTO</h1>
+          </div>
+          <hr size="10" width="95%"></hr>
           <h3 className={styles.info}>Registre seu ponto!</h3>
           <h1 className={styles.clock}>
             {clock}

@@ -9,24 +9,36 @@
   self-center
   mt-[2.5em];
 }
-
+.title_wrapper {
+  @apply flex flex-col justify-start text-start w-[95%];
+}
+.title{
+  @apply 
+  text-xl 
+  leading-9 
+  tracking-tight
+  sm:text-[2.75em] 
+  sm:leading-10 
+  md:text-[1.75em] 
+  md:leading-14;
+}
 .info {
   @apply 
   text-xl 
-  font-extrabold 
   leading-9 
+  mt-5
   tracking-tight
-  sm:text-xl 
+  sm:text-[2.75em] 
   sm:leading-10 
-  md:text-2xl 
+  md:text-[1.75em] 
   md:leading-14;
 }
 .clock {
   @apply 
-  text-3xl py-9 mt-9
+  text-[6.875rem] py-9 mt-9
   font-extrabold leading-9 
-  tracking-tight sm:text-[5.75rem] 
-  sm:leading-10 md:text-[9.75rem] 
+  tracking-tight sm:text-[8em] 
+  sm:leading-10 md:text-[12em] 
   md:leading-14;
 }
 
