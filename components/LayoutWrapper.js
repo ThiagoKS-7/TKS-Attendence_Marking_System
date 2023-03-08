@@ -8,7 +8,7 @@ const LayoutWrapper = ({ children }) => {
   return (
     <>
       <div className="flex h-screen flex-col justify-between">
-        <header className="flex items-center  bg-[#6cbcbd] dark:bg-[#41517a] justify-between py-10">
+        <header className="flex items-center  bg-sky-200 dark:bg-violet-800 justify-between py-4">
           <div>
               <div className="flex items-center justify-between">
                 <div className="mr-3">
