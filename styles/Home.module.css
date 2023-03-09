@@ -1,14 +1,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.main {
-  @apply 
-  flex
-  flex-col
-  items-center
-  self-center
-  mt-[2.5em];
-}
 .title_wrapper {
   @apply flex flex-col justify-start text-start w-[95%];
 }
