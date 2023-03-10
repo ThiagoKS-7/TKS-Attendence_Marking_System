@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 class MyDocument extends Document {
   render() {
@@ -26,7 +27,10 @@ class MyDocument extends Document {
         </Head>
         <body className="bg-white text-black antialiased dark:bg-gray-900 dark:text-white">
           <NextScript />
+          <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+          <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
         </body>
+        
       </Html>
     )
   }

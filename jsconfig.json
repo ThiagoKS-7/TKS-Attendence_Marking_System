@@ -7,6 +7,7 @@
       "@/css/*": ["css/*"],
       "@/layouts/*": ["layouts/*"],
       "@/lib/*": ["lib/*"],
+      "@/config/*": ["config/*"],
       "@/styles/*": ["styles/*"]
     }
   }

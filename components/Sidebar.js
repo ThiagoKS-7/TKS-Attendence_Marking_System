@@ -43,16 +43,6 @@ const Sidebar = ({
             "grid place-content-stretch p-4 ": true,
           })}
         >
-          <div className="flex gap-4 items-center h-11 overflow-hidden">
-            {!collapsed && (
-              <div className="flex flex-col ">
-                <span className="text-indigo-50 my-0">Tom Cook</span>
-                <Link href="/" className="text-indigo-200 text-sm">
-                  View Profile
-                </Link>
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </div>

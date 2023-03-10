@@ -1,11 +1,14 @@
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import LoginSidebar from "./LoginSideBar";
 import Footer from "./Footer";
+import { useRouter } from "next/router";
 const Layout = (props) => {
   const [collapsed, setSidebarCollapsed] = useState(false);
   const [showSidebar, setShowSidebar] = useState(true);
+  const {pathname} = useRouter();
   return (
     <div
       className={classNames({
@@ -15,15 +18,17 @@ const Layout = (props) => {
         "transition-[grid-template-columns] duration-1000 ease-in-out": true,
       })}
     >
+      { pathname !== '/login' ?
       <Sidebar
         collapsed={collapsed}
         setCollapsed={setSidebarCollapsed}
         shown={showSidebar}
       />
+      : <LoginSidebar/>}
       <div className="">
         <Header onMenuButtonClick={() => setShowSidebar((prev) => !prev)} />
         {props.children}
-        <Footer/>
+         <Footer/>
       </div>
     </div>
   );

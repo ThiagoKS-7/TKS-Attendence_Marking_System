@@ -3,6 +3,7 @@ import '@/css/tailwind.css'
 import '@/css/prism.css'
 import siteMetadata from '@/components/siteMetadata'
 import '@fontsource/inter/variable-full.css'
+import '../config/firebaseClient';
 
 import { ThemeProvider } from 'next-themes'
 import Head from 'next/head'
