@@ -26,7 +26,7 @@ const Home = () => {
             setTheme(localStorage.getItem('theme'));
         }
 
-    })
+    }, 5000)
     return (<>
         <Head>
             <title>TKS - Homepage</title>

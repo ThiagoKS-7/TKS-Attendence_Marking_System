@@ -27,7 +27,10 @@ const Layout = (props) => {
       />
       : <LoginSidebar/>}
       <div className="">
-        {
+        <Header onMenuButtonClick={() => setShowSidebar((prev) => !prev)} />
+        {props.children}
+        <Footer/>
+        {/* {
           user ?
           (
           <Header onMenuButtonClick={() => setShowSidebar((prev) => !prev)} />,
@@ -35,7 +38,7 @@ const Layout = (props) => {
           <Footer/>
            ) :
           props.children
-        }
+        } */}
 
       </div>
     </div>

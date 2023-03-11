@@ -16,13 +16,9 @@ export default function App({ Component, pageProps }) {
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
-      {
-        user.length > 0 && user.role =='employee' ?
-        <Component {...pageProps} /> :
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      }
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ThemeProvider>
   )
 }
