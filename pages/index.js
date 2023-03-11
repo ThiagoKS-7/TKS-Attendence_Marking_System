@@ -2,13 +2,14 @@ import ProfileLight from "@/public/profile/light.svg"
 import ProfileDark from "@/public/profile/dark.svg"
 import AdminLight from "@/public/profile/admin_light.svg"
 import AdminDark from "@/public/profile/admin_dark.svg"
+import Department from "@/public/dep.svg"
 import React, { useEffect,useState } from 'react'
 import Link from '@/components/Link'
 import Head from 'next/head'
 
 const Home = () => {
     const [user, setUser] = useState((typeof window !== 'undefined' && localStorage.getItem('user').length > 0) ? JSON.parse(localStorage.getItem('user')) : "");
-    const [theme, setTheme] = useState("light");
+    const [theme, setTheme] = useState("dark");
     const [officeRole, setOfficeRole] = useState("-");
     const getOfficeOrRole = () =>{
         if (user) {
@@ -26,7 +27,7 @@ const Home = () => {
             setTheme(localStorage.getItem('theme'));
         }
 
-    }, 5000)
+    }, 10)
     return (<>
         <Head>
             <title>TKS - Homepage</title>
@@ -35,7 +36,7 @@ const Home = () => {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <div className="flex items-center row-span-2  col-span-2 ... self-center mt-[4.5em] transform-gpu">
-            <div className="ml-[3em] flex justify-between  w-[94%] h-[8em] rounded bg-gray-100  dark:bg-sky-900">
+            <div className="ml-[3em] flex justify-between  w-[94%] h-[8em] rounded bg-gray-300  dark:bg-sky-900">
                 <div className="flex ml-9 w-fit">
                     <div className="flex items-center transition-all duration-1000 ease-out">
                         {
@@ -48,10 +49,20 @@ const Home = () => {
                             )
                         }
                     </div>
-                    <div className="mt-7 mb-4 pr-7 ml-6 border-r-2 border-skate-900 dark:border-sky-300">
+                    <div className="mt-7 mb-4 pr-7 ml-6 border-r-2 border-slate-900 dark:border-sky-300">
                         <h1 className="text-xl">{user ? user.name : "-"}</h1>
                         <h3 className="text-md text-zinc-400">{officeRole.charAt(0).toUpperCase() + officeRole.slice(1)}</h3>
                         <Link href="/profile">Acessar Perfil</Link>
+                    </div>
+                </div>
+
+                <div className="flex w-fit">
+                    <div className="flex ml-5 items-center transition-all duration-1000 ease-out">
+                       <Department/>
+                    </div>
+                    <div className="mt-[2.2em] mb-4 pr-7 ml-2">
+                        <h1 className="text-xl">Department: ABC 123</h1>
+                        <h3 className="text-md text-zinc-400">Sector: ABC 123</h3>
                     </div>
                 </div>
                 {

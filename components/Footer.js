@@ -9,41 +9,51 @@ export default function Footer() {
   return (<>
   <div className="mt-[4em] flex flex-col items-center">
     <div className="mb-3 flex space-x-4">
-      <Mail 
-        width={40} 
-        height={40} 
-        className="fill-current 
-        text-gray-700 hover:text-blue-500
-        dark:text-gray-200 dark:hover:text-blue-400"
-      />
-      <Github 
-        width={35} 
-        height={35} 
-        className="fill-current 
-        text-gray-700 hover:text-blue-500
-        dark:text-gray-200 dark:hover:text-blue-400"
-      />
-       <Facebook
-        width={35} 
-        height={35} 
-        className="fill-current 
-        text-gray-700 hover:text-blue-500
-        dark:text-gray-200 dark:hover:text-blue-400"
-      />
-      <Linkedin
-        width={35} 
-        height={35} 
-        className="fill-current 
-        text-gray-700 hover:text-blue-500
-        dark:text-gray-200 dark:hover:text-blue-400"
-      />
-      <Twitter
-        width={35} 
-        height={35} 
-        className="fill-current 
-        text-gray-700 hover:text-blue-500
-        dark:text-gray-200 dark:hover:text-blue-400"
-      />
+      <Link href={'mailto:'+siteMetadata.email}>
+        <Mail 
+          width={40} 
+          height={40} 
+          className="fill-current 
+          text-gray-700 hover:text-blue-500
+          dark:text-gray-200 dark:hover:text-blue-400"
+        />
+      </Link>
+      <Link href={siteMetadata.github}>
+        <Github 
+          width={35} 
+          height={35} 
+          className="fill-current 
+          text-gray-700 hover:text-blue-500
+          dark:text-gray-200 dark:hover:text-blue-400"
+        />
+      </Link>
+      <Link href={siteMetadata.facebook}>
+        <Facebook
+          width={35} 
+          height={35} 
+          className="fill-current 
+          text-gray-700 hover:text-blue-500
+          dark:text-gray-200 dark:hover:text-blue-400"
+        />
+      </Link>
+      <Link href={siteMetadata.linkedin}>
+        <Linkedin
+          width={35} 
+          height={35} 
+          className="fill-current 
+          text-gray-700 hover:text-blue-500
+          dark:text-gray-200 dark:hover:text-blue-400"
+        />
+      </Link>
+      <Link href={siteMetadata.twitter}>
+        <Twitter
+          width={35} 
+          height={35} 
+          className="fill-current 
+          text-gray-700 hover:text-blue-500
+          dark:text-gray-200 dark:hover:text-blue-400"
+        />
+      </Link>
     </div>
     <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
       <div>{siteMetadata.author}</div>
