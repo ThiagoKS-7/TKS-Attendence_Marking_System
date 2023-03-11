@@ -21,8 +21,8 @@ const Login = () => {
         </Head>
         <div className='flex  flex-col w-[115vw] transition fade-in-left 1s ease-in-out  self-center items-center justify-center transform-gpu'>
             {
-                theme == 'light' ?  <Image src={MainLight} alt="" width={500} height={500}/>
-                : <Image src={MainDark} alt="" width={500} height={500}/>
+                theme == 'light' ?  <Image src={MainLight} alt="" width={400} height={400}/>
+                : <Image src={MainDark} alt="" width={400} height={400}/>
             }
             <div className='absolute top-3 right-0'>
                 <ThemeSwitch />

@@ -13,7 +13,6 @@ import $ from 'jquery'
 
 export default function App({ Component, pageProps }) {
   const [user, setUser] = useState((typeof window !== 'undefined' && localStorage.getItem('user').length > 0) ? JSON.parse(localStorage.getItem('user')) : "" );
-
   useEffect(() => {
     const settings = {
         "url": "http://localhost:3000/api/hello",
@@ -26,8 +25,11 @@ export default function App({ Component, pageProps }) {
       
     $.ajax(settings).done(async function (response) {
         console.log(response);
-        
     });
+    const use = async () => {
+      (await import('tw-elements')).default;
+    };
+    use();
   })
   return (
     <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
