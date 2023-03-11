@@ -6,9 +6,10 @@ import LoginSidebar from "./LoginSideBar";
 import Footer from "./Footer";
 import { useRouter } from "next/router";
 const Layout = (props) => {
-  const [collapsed, setSidebarCollapsed] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(true);
+  const [collapsed, setSidebarCollapsed] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(false);
   const {pathname} = useRouter();
+  const [user, setUser] = useState((typeof window !== 'undefined' && localStorage.getItem('user').length > 0) ? JSON.parse(localStorage.getItem('user')) : "" );
   return (
     <div
       className={classNames({
@@ -26,9 +27,16 @@ const Layout = (props) => {
       />
       : <LoginSidebar/>}
       <div className="">
-        <Header onMenuButtonClick={() => setShowSidebar((prev) => !prev)} />
-        {props.children}
-         <Footer/>
+        {
+          user ?
+          (
+          <Header onMenuButtonClick={() => setShowSidebar((prev) => !prev)} />,
+          props.children,
+          <Footer/>
+           ) :
+          props.children
+        }
+
       </div>
     </div>
   );

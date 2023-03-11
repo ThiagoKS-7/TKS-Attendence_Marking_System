@@ -19,6 +19,7 @@ const Sidebar = ({
         "w-[330px]": !collapsed,
         "w-[90px]": collapsed,
         "-translate-x-full": !shown,
+        "transform-gpu": true
       })}
     >
       <div
