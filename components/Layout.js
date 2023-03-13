@@ -9,8 +9,13 @@ const Layout = (props) => {
   const [collapsed, setSidebarCollapsed] = useState(true);
   const [showSidebar, setShowSidebar] = useState(false);
   const {pathname} = useRouter();
-  const [user, setUser] = useState((typeof window !== 'undefined' && localStorage.getItem('user').length > 0) ? JSON.parse(localStorage.getItem('user')) : "" );
+  const [user, setUser] = useState((typeof window !== 'undefined' && localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : "" );
   const [width, setWidth] = useState(0);
+  const routes = [
+    '/login',
+    '/register',
+    '/forgot-password'
+  ]
 
   setInterval(() => {
     if (typeof window !== 'undefined') {
@@ -25,13 +30,14 @@ const Layout = (props) => {
             "grid min-h-screen": true,
             "grid-cols-sidebar": !collapsed,
             "grid-cols-sidebar-collapsed": collapsed,
-            "transition-[grid-template-columns] duration-1000 ease-in-out": true,
+            "transition-all duration-3000 ease-in-out": true,
+            "transform-gpu": true,
           }) 
         ) : ''
       }
     >
       { 
-        pathname !== '/login' ? 
+        (!routes.find(el => el == pathname)) ? 
         (
           width > 1000 ?
           <Sidebar

@@ -9,7 +9,7 @@ import classNames from "classnames";
 import Head from 'next/head'
 
 const Home = () => {
-    const [user, setUser] = useState((typeof window !== 'undefined' && localStorage.getItem('user').length > 0) ? JSON.parse(localStorage.getItem('user')) : "");
+    const [user, setUser] = useState((typeof window !== 'undefined' && localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : "");
     const [theme, setTheme] = useState("dark");
     const [officeRole, setOfficeRole] = useState("-");
     const [width, setWidth] = useState(0);
