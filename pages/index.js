@@ -5,25 +5,48 @@ import AdminLight from "@/public/profile/admin_light.svg"
 import AdminDark from "@/public/profile/admin_dark.svg"
 import Department from "@/public/dep.svg"
 import Link from '@/components/Link'
-import classNames from "classnames";
+import classNames from "classnames"
 import Head from 'next/head'
+import $ from 'jquery'
+import { useRouter } from 'next/router'
 
 const Home = () => {
-    const [user, setUser] = useState((typeof window !== 'undefined' && localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : "");
+    const [user, setUser] = useState("");
     const [theme, setTheme] = useState("dark");
     const [officeRole, setOfficeRole] = useState("-");
     const [width, setWidth] = useState(0);
+    const router = useRouter();
 
-    const getOfficeOrRole = () =>{
-        if (user) {
-            setTheme(localStorage.getItem('theme'));
-            setOfficeRole(user?.office ? user.office : user.role);
-        }
-    };
     useEffect(() => {
       if (typeof window !== 'undefined') {
-        getOfficeOrRole();
+  
       }
+      const settings = {
+        "url": "http://localhost:3000/api/checkUser",
+        "method": "GET",
+        "timeout": 0,
+        "headers": {
+        "Content-Type": "application/json"
+        },
+        "data": {
+            "user": typeof window !== 'undefined' ? localStorage.getItem('user') : null
+        },
+        complete: function(xhr, textStatus) {
+            if(xhr.status == 403) {
+                router.push("/forbidden")
+            } else {
+                setUser(JSON.parse(localStorage.getItem('user')))
+                if (user) {
+                    setTheme(localStorage.getItem('theme'));
+                    setOfficeRole(user?.office ? user.office : user.role);
+                }
+            }
+        } 
+      };
+      
+    
+      $.ajax(settings);
+
     },[])
     setInterval(() => {
         if (typeof window !== 'undefined') {

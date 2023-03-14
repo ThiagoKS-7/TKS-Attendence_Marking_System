@@ -2,7 +2,7 @@ import Image from 'next/image';
 import MainLight from "@/public/main/light.gif";
 import MainDark from "@/public/main/dark.gif";
 import ThemeSwitch from '@/components/ThemeSwitch'
-import React, { useEffect,useState } from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
 const Login = () => {
     const [theme, setTheme] = useState("dark");
