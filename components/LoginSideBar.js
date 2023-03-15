@@ -1,22 +1,33 @@
 
-import React from "react";
+import React, {useState} from "react";
 import classNames from "classnames";
 import Logo from "@/public/logo.svg";
 import siteMetadata from "./siteMetadata";
 import { useRouter } from "next/router";
 import $ from "jquery";
+import Link from "./Link"
+
 const LoginSidebar = () => {
-    const router = useRouter();
-    const handleSubmit = async (event) => {
-        // Stop the form from submitting and refreshing the page.
-        event.preventDefault();
+    const {pathname} = useRouter();
+    const routes = [
+      '/register',
+      '/forgot-password'
+    ]
+    const [height, setHeight] = useState(0);
+    setInterval(() => {
+      if (typeof window !== 'undefined') {
+        setHeight(window.innerHeight);
+      }
+    }, 10)
+    const handleLogin = async (event) => {
+      event.preventDefault();
     
-         // Get data from the form.
+      try {
         const data = {
           email: event.target.email.value,
           password: event.target.password.value,
         }
-
+  
         const settings = {
             "url": "http://127.0.0.1:8000/v1/login",
             "method": "POST",
@@ -25,6 +36,10 @@ const LoginSidebar = () => {
               "Content-Type": "application/json"
             },
             "data": JSON.stringify(data),
+            error: function (xhr, ajaxOptions, thrownError) {
+              console.log(xhr.status, thrownError);
+              alert("Erro! Usuário e/ou senha inválidos!");
+            }
           };
           
         $.ajax(settings).done(async function (response) {
@@ -32,6 +47,91 @@ const LoginSidebar = () => {
             localStorage.setItem("auth", JSON.stringify(response.auth));
             
         });
+      } catch(e) {
+        console.error(e);
+      }
+    }
+    const handleRegister = async (event) => {
+      event.preventDefault();
+    
+      try {
+        const data = {
+          name: event.target.name.value,
+          email: event.target.email.value,
+          age: event.target.age.value,
+          role: event.target.role.value,
+          office: event.target.office.value,
+          admin_id: event.target.admin_id.value,
+          password: event.target.password.value,
+        }
+  
+        const settings = {
+            "url": "http://127.0.0.1:8000/v1/register",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(data),
+            error: function (xhr, ajaxOptions, thrownError) {
+              console.log(xhr.status, thrownError);
+              alert("Erro! Contate o administrador do sistema!");
+            }
+          };
+          
+        $.ajax(settings).done(async function (response) {
+            localStorage.setItem("user", JSON.stringify(response.user));
+            localStorage.setItem("auth", JSON.stringify(response.auth));
+            
+        });
+      } catch(e) {
+        console.error(e);
+      }
+    }
+    const handleForgot = async (event) => {
+      event.preventDefault();
+    
+      try {
+        const data = {
+          email: event.target.email.value,
+        }
+  
+        const settings = {
+            "url": "http://127.0.0.1:8000/v1/forgot-password",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(data),
+            error: function (xhr, ajaxOptions, thrownError) {
+              console.log(xhr.status, thrownError);
+              alert("Erro! Email não encontrado!");
+            }
+          };
+          
+        $.ajax(settings).done(async function (response) {
+            localStorage.setItem("user", JSON.stringify(response.user));
+            localStorage.setItem("auth", JSON.stringify(response.auth));
+            
+        });
+      } catch(e) {
+        console.error(e);
+      }
+    }
+    const handleSubmit = async (event) => {
+        switch(pathname) {
+          case "/login":
+            handleLogin();
+            break;
+          case "/register":
+            handleRegister();
+            break;
+          case "/forgot-password":
+            handleForgot();
+            break;
+        }
+        
     }
   return (
     <div
@@ -59,7 +159,50 @@ const LoginSidebar = () => {
                 {siteMetadata.headerTitle}
             </span>
         </div>
-        <form className="mt-[3em] px-6" method="POST" onSubmit={handleSubmit}>
+        {
+          (routes.find(el => el == pathname) && height > 711) ?
+          (
+            <h1 className="mt-[2em] px-6 text-xl">
+              {
+                pathname === "/register" ? "Register your Account"
+                : "Update your password"
+              }
+            </h1>
+          ) : ""
+        }
+        <form className="mt-[1em] px-6" method="POST" onSubmit={handleSubmit}>   
+            {
+              pathname === "/register" ? 
+              (
+                <div className="relative z-0 w-full mb-6 group">
+                    <input 
+                    type="text" 
+                    name="name" 
+                    id="name" 
+                    className="block
+                    py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
+                    border-gray-300 appearance-none dark:text-white dark:border-gray-600 
+                    dark:focus:border-blue-500 focus:outline-none 
+                    focus:ring-0 focus:border-blue-600 peer" 
+                    placeholder=" " 
+                    required 
+                  />
+                  <label 
+                    htmlFor="name" 
+                    className="peer-focus:font-medium 
+                    absolute text-sm text-gray-500 
+                    dark:text-gray-400 duration-300 transform 
+                    -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                    peer-focus:left-0 peer-focus:text-blue-600 
+                    peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 
+                    peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
+                    peer-focus:-translate-y-6">
+                        Full Name
+                  </label>
+                </div>
+                
+              ) : ''
+            }
             <div className="relative z-0 w-full mb-6 group">
                 <input 
                     type="email" 
@@ -86,6 +229,134 @@ const LoginSidebar = () => {
                         Email address
                 </label>
             </div>
+            {
+              pathname === "/register" ? 
+              (
+                <div className="relative z-0 w-full mb-6 group">
+                    <input 
+                    type="number" 
+                    name="age" 
+                    id="age" 
+                    className="block
+                    py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
+                    border-gray-300 appearance-none dark:text-white dark:border-gray-600 
+                    dark:focus:border-blue-500 focus:outline-none 
+                    focus:ring-0 focus:border-blue-600 peer" 
+                    placeholder=" " 
+                    required 
+                  />
+                  <label 
+                    htmlFor="age" 
+                    className="peer-focus:font-medium 
+                    absolute text-sm text-gray-500 
+                    dark:text-gray-400 duration-300 transform 
+                    -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                    peer-focus:left-0 peer-focus:text-blue-600 
+                    peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 
+                    peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
+                    peer-focus:-translate-y-6">
+                        Age
+                  </label>
+                </div>
+                
+              ) : ''
+            }
+             {
+              pathname === "/register" ? 
+              (
+                <div className="relative z-0 w-full mb-6 group">
+                    <input 
+                    type="text" 
+                    name="name" 
+                    id="name" 
+                    className="block
+                    py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
+                    border-gray-300 appearance-none dark:text-white dark:border-gray-600 
+                    dark:focus:border-blue-500 focus:outline-none 
+                    focus:ring-0 focus:border-blue-600 peer" 
+                    placeholder=" " 
+                    required 
+                  />
+                  <label 
+                    htmlFor="name" 
+                    className="peer-focus:font-medium 
+                    absolute text-sm text-gray-500 
+                    dark:text-gray-400 duration-300 transform 
+                    -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                    peer-focus:left-0 peer-focus:text-blue-600 
+                    peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 
+                    peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
+                    peer-focus:-translate-y-6">
+                        Role Name
+                  </label>
+                </div>
+                
+              ) : ''
+            }
+             {
+              pathname === "/register" ? 
+              (
+                <div className="relative z-0 w-full mb-6 group">
+                    <input 
+                    type="text" 
+                    name="office" 
+                    id="office" 
+                    className="block
+                    py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
+                    border-gray-300 appearance-none dark:text-white dark:border-gray-600 
+                    dark:focus:border-blue-500 focus:outline-none 
+                    focus:ring-0 focus:border-blue-600 peer" 
+                    placeholder=" " 
+                    required 
+                  />
+                  <label 
+                    htmlFor="office" 
+                    className="peer-focus:font-medium 
+                    absolute text-sm text-gray-500 
+                    dark:text-gray-400 duration-300 transform 
+                    -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                    peer-focus:left-0 peer-focus:text-blue-600 
+                    peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 
+                    peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
+                    peer-focus:-translate-y-6">
+                        Office Name
+                  </label>
+                </div>
+                
+              ) : ''
+            }
+             {
+              pathname === "/register" ? 
+              (
+                <div className="relative z-0 w-full mb-6 group">
+                    <input 
+                    type="number" 
+                    name="admin_id" 
+                    id="admin_id" 
+                    className="block
+                    py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
+                    border-gray-300 appearance-none dark:text-white dark:border-gray-600 
+                    dark:focus:border-blue-500 focus:outline-none 
+                    focus:ring-0 focus:border-blue-600 peer" 
+                    placeholder=" " 
+                    required 
+                  />
+                  <label 
+                    htmlFor="admin_id" 
+                    className="peer-focus:font-medium 
+                    absolute text-sm text-gray-500 
+                    dark:text-gray-400 duration-300 transform 
+                    -translate-y-6 scale-75 top-3 -z-10 origin-[0] 
+                    peer-focus:left-0 peer-focus:text-blue-600 
+                    peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 
+                    peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
+                    peer-focus:-translate-y-6">
+                        Admin ID
+                  </label>
+                </div>
+                
+              ) : ''
+            }
             <div className="relative z-0 w-full mb-6 group">
                 <input 
                     type="password" 
@@ -135,16 +406,40 @@ const LoginSidebar = () => {
                     Confirm password
                 </label>
             </div>
-            <button 
-                type="submit" 
-                className="text-white bg-blue-700 
-                hover:bg-blue-800 focus:ring-4 focus:outline-none 
-                focus:ring-blue-300 font-medium rounded-lg text-sm w-full 
-                sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 
-                dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-                Submit
-            </button>
+            {
+               (!routes.find(el => el == pathname)) ? 
+               (
+                <div className="flex flex-col">
+                  <Link href="/forgot-password" className="opacity-80 hover:opacity-100">Forgot the Password?</Link>
+                  <Link href="/register" className="opacity-80 hover:opacity-100">Dont have an Account?</Link>
+                  <button 
+                      type="submit" 
+                      className="mt-5 text-white bg-blue-700 
+                      hover:bg-blue-800 focus:ring-4 focus:outline-none 
+                      focus:ring-blue-300 font-medium rounded-lg text-sm w-full 
+                      sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 
+                      dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                      Submit
+                  </button>
+                </div>
+               ) : 
+               (
+                <div className="flex flex-col">
+                  <button 
+                      type="submit" 
+                      className={
+                        classNames({
+                        "mt-5": height > 711,
+                        "text-white bg-blue-7 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800": true
+                      })
+                    }
+                  >
+                      Submit
+                  </button>
+                </div>
+               )
+            }
         </form>
       </div>
     </div>

@@ -18,9 +18,6 @@ const Home = () => {
     const router = useRouter();
 
     useEffect(() => {
-      if (typeof window !== 'undefined') {
-  
-      }
       const settings = {
         "url": "http://localhost:3000/api/checkUser",
         "method": "GET",

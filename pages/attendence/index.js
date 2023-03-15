@@ -1,10 +1,14 @@
 import AttendenceCard from '@/components/AttendenceCard';
 import Head from 'next/head'
 import React, { useState,useCallback,useEffect } from 'react'
+import $ from 'jquery'
+import { useRouter } from 'next/router'
 
 export default function Attendence() {
   const [clock, setClock] = useState();
+  const [user, setUser] = useState("");
   const [day, setDay] = useState();
+  const router = useRouter();
   const currentTime = useCallback(() =>{
     let date = new Date(Date.now());
     let hours = (
@@ -50,6 +54,34 @@ export default function Attendence() {
   useEffect(() => {
     setDay(currentDate);
   }, [currentDate]);
+  useEffect(() => {
+    const settings = {
+      "url": "http://localhost:3000/api/checkUser",
+      "method": "GET",
+      "timeout": 0,
+      "headers": {
+      "Content-Type": "application/json"
+      },
+      "data": {
+          "user": typeof window !== 'undefined' ? localStorage.getItem('user') : null
+      },
+      complete: function(xhr, textStatus) {
+          if(xhr.status == 403) {
+              router.push("/forbidden")
+          } else {
+              setUser(JSON.parse(localStorage.getItem('user')))
+              if (user) {
+                  setTheme(localStorage.getItem('theme'));
+                  setOfficeRole(user?.office ? user.office : user.role);
+              }
+          }
+      } 
+    };
+    
+  
+    $.ajax(settings);
+
+  },[])
 
   return (
     <>
