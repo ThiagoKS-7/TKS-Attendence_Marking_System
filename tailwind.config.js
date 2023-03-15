@@ -11,6 +11,7 @@ module.exports = {
     './layouts/**/*.js',
     './lib/**/*.js',
     './data/**/*.mdx',
+    "./node_modules/tw-elements/dist/js/**/*.js"
   ],
   darkMode: 'class',
   theme: {
@@ -169,5 +170,8 @@ module.exports = {
       }),
     },
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/forms'), 
+    require('@tailwindcss/typography')
+  ],
 }

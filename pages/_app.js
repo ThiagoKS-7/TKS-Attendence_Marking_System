@@ -12,7 +12,7 @@ import React, { useEffect,useReducer,useState } from 'react'
 import $ from 'jquery'
 
 export default function App({ Component, pageProps }) {
-  const [user, setUser] = useState((typeof window !== 'undefined' && localStorage.getItem('user').length > 0) ? JSON.parse(localStorage.getItem('user')) : "" );
+  const [user, setUser] = useState((typeof window !== 'undefined' && localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : "" );
 
   useEffect(() => {
     const settings = {
@@ -26,7 +26,6 @@ export default function App({ Component, pageProps }) {
       
     $.ajax(settings).done(async function (response) {
         console.log(response);
-        
     });
   })
   return (

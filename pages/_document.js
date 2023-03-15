@@ -1,4 +1,6 @@
+/* eslint-disable @next/next/no-script-in-document */
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Script from 'next/script'
 class MyDocument extends Document {
   render() {
     
@@ -13,6 +15,7 @@ class MyDocument extends Document {
         </Head>
         <body className="bg-white text-black antialiased dark:bg-gray-900 dark:text-white">
           <NextScript />
+          <Script src="./TW-ELEMENTS-PATH/dist/js/index.min.js"/>
         </body>
         
       </Html>
