@@ -18,6 +18,7 @@ const Home = () => {
     const router = useRouter();
 
     useEffect(() => {
+      const user = JSON.parse(localStorage.getItem('user'))
       const settings = {
         "url": "http://localhost:3000/api/checkUser",
         "method": "GET",
@@ -26,7 +27,7 @@ const Home = () => {
         "Content-Type": "application/json"
         },
         "data": {
-            "user": typeof window !== 'undefined' ? localStorage.getItem('user') : null
+            "id": typeof window !== 'undefined' ? user: "-",
         },
         complete: function(xhr, textStatus) {
             if(xhr.status == 403) {
@@ -87,7 +88,7 @@ const Home = () => {
                         }
                     </div>
                     <div className="flex flex-col  justify-center  pr-7 ml-6">
-                        <h1 className="text-xl">{user ? user.name : "Thiago Kasper de Souza"}</h1>
+                        <h1 className="text-xl">{user ? user.name : ""}</h1>
                         <h3 className="text-md text-zinc-400">{officeRole.charAt(0).toUpperCase() + officeRole.slice(1)}</h3>
                         <Link href="/profile">Acessar Perfil</Link>
                     </div>
@@ -107,7 +108,7 @@ const Home = () => {
                     ) : ''
                 }
                 {
-                    width > 1000 ? 
+                    (user.role === 'employee' && width > 1000) ?
                     (
                         <div className="flex w-[28vw]">
                             <div className="flex ml-5 items-center transition-all duration-1000 ease-out">
@@ -119,28 +120,7 @@ const Home = () => {
                                     )
                                 }
                             </div>
-                            <div className="flex flex-col  justify-center  mb-4 pr-7 ml-2">
-                                <h1 className="text-xl">{user ? user.name : "-"}</h1>
-                                <h3 className="text-md text-zinc-400">{officeRole.charAt(0).toUpperCase() + officeRole.slice(1)}</h3>
-                                <Link href="/profile">Acessar Perfil</Link>
-                            </div>
-                        </div>
-                    ) : ''
-                }
-                {
-                    user.role === 'employee' ?
-                    (
-                        <div className="flex w-[30vw]">
-                            <div className="flex ml-5 items-center transition-all duration-1000 ease-out">
-                                {
-                                    theme === 'dark' ? (
-                                        <AdminDark/>
-                                    ) : (
-                                        <AdminLight/>
-                                    )
-                                }
-                            </div>
-                            <div className="mt-7 mb-4 pr-7 ml-2">
+                            <div className="flex flex-col  justify-center pr-7 ml-2">
                                 <h1 className="text-xl">{user ? user.name : "-"}</h1>
                                 <h3 className="text-md text-zinc-400">{officeRole.charAt(0).toUpperCase() + officeRole.slice(1)}</h3>
                                 <Link href="/profile">Acessar Perfil</Link>

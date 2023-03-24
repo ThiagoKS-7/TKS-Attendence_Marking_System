@@ -10,6 +10,7 @@ const Header = (props) => {
         if (typeof window !== 'undefined') {
             localStorage.setItem('user', '');
             localStorage.removeItem('auth', '');
+            router.push("/login")
         }
     };
     setInterval(() => {
@@ -29,18 +30,14 @@ const Header = (props) => {
                 }>
                     TKS People Management
                 </div>
-                {
-                    width >= 600 ?
-                        (
-                            <div className="flex items-center text-base leading-5">
-                                <button onClick={handleLogout()}>
-                                    Logout
-                                </button>
-                                <ThemeSwitch />
-                            </div>
-                        ) :
-                        ''
-                }
+                <div className="flex items-center text-base leading-5">
+                    <button onClick={handleLogout}>
+                        Logout
+                    </button>
+                    <ThemeSwitch />
+                </div>
+
+      
 
             </div>
         </>

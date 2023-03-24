@@ -9,6 +9,7 @@ import Link from "./Link"
 
 const LoginSidebar = () => {
     const {pathname} = useRouter();
+    const router = useRouter();
     const routes = [
       '/register',
       '/forgot-password'
@@ -20,7 +21,6 @@ const LoginSidebar = () => {
       }
     }, 10)
     const handleLogin = async (event) => {
-      event.preventDefault();
     
       try {
         const data = {
@@ -42,9 +42,10 @@ const LoginSidebar = () => {
             }
           };
           
-        $.ajax(settings).done(async function (response) {
+        await $.ajax(settings).done(async function (response) {
             localStorage.setItem("user", JSON.stringify(response.user));
             localStorage.setItem("auth", JSON.stringify(response.auth));
+            router.push("/")
             
         });
       } catch(e) {
@@ -52,20 +53,40 @@ const LoginSidebar = () => {
       }
     }
     const handleRegister = async (event) => {
-      event.preventDefault();
-    
       try {
+        let settings = ""
         const data = {
           name: event.target.name.value,
           email: event.target.email.value,
-          age: event.target.age.value,
-          role: event.target.role.value,
+          age: parseInt(event.target.age.value),
+          role: event.target.role.value.toLowerCase(),
           office: event.target.office.value,
           admin_id: event.target.admin_id.value,
           password: event.target.password.value,
         }
-  
-        const settings = {
+        const adminData = {
+          name: event.target.name.value,
+          email: event.target.email.value,
+          age: parseInt(event.target.age.value),
+          role: event.target.role.value.toLowerCase(),
+          password: event.target.password.value,
+        }
+        if(data.role == "admin") {
+          settings = {
+            "url": "http://127.0.0.1:8000/v1/admin/register",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "data": JSON.stringify(adminData),
+            error: function (xhr, ajaxOptions, thrownError) {
+              console.log(xhr.status, thrownError);
+              alert("Erro! Contate o administrador do sistema!");
+            }
+          };       
+        } else {
+          settings = {
             "url": "http://127.0.0.1:8000/v1/register",
             "method": "POST",
             "timeout": 0,
@@ -74,22 +95,23 @@ const LoginSidebar = () => {
             },
             "data": JSON.stringify(data),
             error: function (xhr, ajaxOptions, thrownError) {
-              console.log(xhr.status, thrownError);
-              alert("Erro! Contate o administrador do sistema!");
+              alert(`Erro! ${xhr.status} ${thrownError},Contate o administrador do sistema!`);
             }
           };
+        }
           
         $.ajax(settings).done(async function (response) {
             localStorage.setItem("user", JSON.stringify(response.user));
             localStorage.setItem("auth", JSON.stringify(response.auth));
+            router.push("/")
             
         });
       } catch(e) {
         console.error(e);
       }
+     
     }
     const handleForgot = async (event) => {
-      event.preventDefault();
     
       try {
         const data = {
@@ -110,7 +132,7 @@ const LoginSidebar = () => {
             }
           };
           
-        $.ajax(settings).done(async function (response) {
+        await $.ajax(settings).done(async function (response) {
             localStorage.setItem("user", JSON.stringify(response.user));
             localStorage.setItem("auth", JSON.stringify(response.auth));
             
@@ -120,16 +142,17 @@ const LoginSidebar = () => {
       }
     }
     const handleSubmit = async (event) => {
-        switch(pathname) {
-          case "/login":
-            handleLogin();
-            break;
-          case "/register":
-            handleRegister();
-            break;
-          case "/forgot-password":
-            handleForgot();
-            break;
+      event.preventDefault();
+      switch(pathname) {
+        case "/login":
+          handleLogin(event);
+          break;
+        case "/register":
+          handleRegister(event);
+          break;
+        case "/forgot-password":
+          handleForgot(event);
+          break;
         }
         
     }
@@ -267,8 +290,8 @@ const LoginSidebar = () => {
                 <div className="relative z-0 w-full mb-6 group">
                     <input 
                     type="text" 
-                    name="name" 
-                    id="name" 
+                    name="role" 
+                    id="role" 
                     className="block
                     py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 
                     border-gray-300 appearance-none dark:text-white dark:border-gray-600 
@@ -278,7 +301,7 @@ const LoginSidebar = () => {
                     required 
                   />
                   <label 
-                    htmlFor="name" 
+                    htmlFor="role" 
                     className="peer-focus:font-medium 
                     absolute text-sm text-gray-500 
                     dark:text-gray-400 duration-300 transform 

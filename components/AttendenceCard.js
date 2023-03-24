@@ -6,16 +6,16 @@ const AttendenceCard = ({clock, date}) => {
             <main className="flex flex-col items-center row-span-2  col-span-2 ... self-center mt-[2.5em]">
                 <div className="t-[2vw] w-[50%] flex flex-col transition-all duration-1000 ease-in-out  pt-9 pb-9 justify-center items-center bg-gray-100  dark:bg-sky-900 rounded">
                 <div className={styles.title_wrapper}>
-                    <h1 className={styles.title}>MARCAÇÃO DE PONTO</h1>
+                    <h2 className={styles.title}>MARCAÇÃO DE PONTO</h2>
                 </div>
                 <hr size="10" width="95%"></hr>
                 <h3 className={styles.info}>Registre seu ponto!</h3>
-                <h1 className={styles.clock}>
+                <h2 className={styles.clock}>
                     {clock}
-                </h1>
-                <h1 className={styles.day}>
+                </h2>
+                <h2 className={styles.day}>
                     {date}
-                </h1>
+                </h2>
                 <button
                     type="button"
                     data-te-ripple-init
