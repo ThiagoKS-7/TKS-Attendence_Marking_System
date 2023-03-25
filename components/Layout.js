@@ -55,7 +55,7 @@ const Layout = (props) => {
         { (!routes.find(el => el == pathname)) ? <Header onMenuButtonClick={() => setShowSidebar((prev) => !prev)} />
           : ''}
         {props.children}
-        {user ? <Footer/> : ''}
+        {(user && !routes.find(el => el == pathname)) ? <Footer/> : ''}
       </div>
     </div>
   );

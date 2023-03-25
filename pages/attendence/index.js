@@ -43,7 +43,7 @@ export default function Attendence() {
     let day = (
       date.getDate() <= 9 ? 
       '0' + date.getDate() : 
-      date.getMinutes()
+      date.getDate()
     );
     return `${day} de ${meses[date.getMonth() +1]} de ${date.getFullYear()}`;
   }, []);

@@ -37,7 +37,7 @@ const LoginSidebar = () => {
             },
             "data": JSON.stringify(data),
             error: function (xhr, ajaxOptions, thrownError) {
-              console.log(xhr.status, thrownError);
+              console.error(xhr.status, thrownError);
               alert("Erro! Usuário e/ou senha inválidos!");
             }
           };
@@ -81,7 +81,7 @@ const LoginSidebar = () => {
             },
             "data": JSON.stringify(adminData),
             error: function (xhr, ajaxOptions, thrownError) {
-              console.log(xhr.status, thrownError);
+              console.error(xhr.status, thrownError);
               alert("Erro! Contate o administrador do sistema!");
             }
           };       
@@ -127,7 +127,7 @@ const LoginSidebar = () => {
             },
             "data": JSON.stringify(data),
             error: function (xhr, ajaxOptions, thrownError) {
-              console.log(xhr.status, thrownError);
+              console.error(xhr.status, thrownError);
               alert("Erro! Email não encontrado!");
             }
           };

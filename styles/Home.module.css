@@ -76,3 +76,13 @@
   md:text-[1rem]
   md:leading-14;
 }
+
+.att_wrapper {
+  @apply grid
+  text-center
+  grid-rows-[3.5em]
+  mt-[1em]
+  grid-cols-[repeat(2,20vw)]
+  sm:grid-cols-[repeat(2,20vw)]
+  md:grid-cols-[repeat(4,10vw)];
+}

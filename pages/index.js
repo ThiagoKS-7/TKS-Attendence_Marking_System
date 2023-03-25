@@ -121,8 +121,8 @@ const Home = () => {
                                 }
                             </div>
                             <div className="flex flex-col  justify-center pr-7 ml-2">
-                                <h1 className="text-xl">{user ? user.name : "-"}</h1>
-                                <h3 className="text-md text-zinc-400">{officeRole.charAt(0).toUpperCase() + officeRole.slice(1)}</h3>
+                                <h1 className="text-xl">{user ? user.adm_name : "-"}</h1>
+                                <h3 className="text-md text-zinc-400">Admin</h3>
                                 <Link href="/profile">Acessar Perfil</Link>
                             </div>
                         </div>
