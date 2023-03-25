@@ -19,7 +19,7 @@ const Login = () => {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
-        <div className='flex  flex-col w-[115vw] transition-all 1s ease-in-out  self-center items-center justify-center transform-gpu'>
+        <div className='flex  flex-col transition-all 1s ease-in-out  self-center items-center justify-center transform-gpu' style={{marginLeft: "15em"}}>
             {
                 theme == 'light' ?  <Image src={MainLight} alt="" width={400} height={400}/>
                 : <Image src={MainDark} alt="" width={400} height={400}/>

@@ -52,20 +52,10 @@ const Layout = (props) => {
         )
       }
       <div className="">
-        {/* <Header onMenuButtonClick={() => setShowSidebar((prev) => !prev)} />
+        { (!routes.find(el => el == pathname)) ? <Header onMenuButtonClick={() => setShowSidebar((prev) => !prev)} />
+          : ''}
         {props.children}
-        <Footer/> */}
-        {
-          user ? 
-          (
-            <Header onMenuButtonClick={() => setShowSidebar((prev) => !prev)} />,
-            props.children,
-            <Footer/>
-          ) : 
-          (
-            props.children
-          )
-        }
+        {user ? <Footer/> : ''}
       </div>
     </div>
   );
