@@ -27,7 +27,7 @@ const Home = () => {
         "Content-Type": "application/json"
         },
         "data": {
-            "id": typeof window !== 'undefined' ? user: "-",
+            "id": typeof window !== 'undefined' ? user.id : "-",
         },
         complete: function(xhr, textStatus) {
             if(xhr.status == 403) {
@@ -79,10 +79,10 @@ const Home = () => {
                     <div className="flex items-center transition-all duration-1000 ease-out">
                         {
                             theme === 'dark' ? (
-                                user.role === 'admin' ?
+                                user?.role === 'admin' ?
                                 <AdminDark/> : <ProfileDark/>
                             ) : (
-                                user.role === 'admin' ?
+                                user?.role === 'admin' ?
                                 <AdminLight/> : <ProfileLight/>
                             )
                         }
@@ -108,7 +108,7 @@ const Home = () => {
                     ) : ''
                 }
                 {
-                    (user.role === 'employee' && width > 1000) ?
+                    (user.role === 'employee' && width > 1300) ?
                     (
                         <div className="flex w-[28vw]">
                             <div className="flex ml-5 items-center transition-all duration-1000 ease-out">

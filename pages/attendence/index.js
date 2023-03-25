@@ -63,7 +63,7 @@ export default function Attendence() {
       "Content-Type": "application/json"
       },
       "data": {
-          "user": typeof window !== 'undefined' ? localStorage.getItem('user') : null
+        "id": typeof window !== 'undefined' ? user.id : "-",
       },
       complete: function(xhr, textStatus) {
           if(xhr.status == 403) {
